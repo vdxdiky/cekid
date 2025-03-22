@@ -9,7 +9,16 @@ export default async function ml(id: number, zone: number): Promise<Result> {
 
     // Fetch data using GET request
     const response = await fetch(url, { method: 'GET', headers })
+
+    // Check if the response is successful
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data. Status: ${response.status}`)
+    }
+
     const data = await response.json()
+
+    // Log the raw data to inspect it
+    console.log('API response:', data)
 
     // Check if the API response is successful
     if (data.status !== 'success') {
@@ -41,7 +50,7 @@ export default async function ml(id: number, zone: number): Promise<Result> {
     console.error('Error in ml function:', error)
     return {
       success: false,
-      message: 'An error occurred while processing the request',
+      message: `An error occurred: ${error.message}`,
     }
   }
 }
