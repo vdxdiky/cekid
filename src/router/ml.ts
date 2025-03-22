@@ -5,6 +5,7 @@ export default async function ml(id: number, zone: number): Promise<Result> {
     const url = `https://api.ryzendesu.vip/api/stalk/ml?userId=${id}&zoneId=${zone}`
     const headers = {
       'accept': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36', // Common user-agent header
     }
 
     // Fetch data using GET request
@@ -21,15 +22,13 @@ export default async function ml(id: number, zone: number): Promise<Result> {
     console.log('API response:', data)
 
     // Check if the API response is successful
-    if (data.status !== 'success') {
+    if (data.success !== true) {
       throw new Error(data.message || 'Error occurred while fetching data')
     }
 
     // Extract relevant data from the response
-    const username = data.data.username
-    const accountAge = data.accountAge
-    const createRoleCountry = data.data.create_role_country
-    const thisLoginCountry = data.data.this_login_country
+    const username = data.username
+    const region = data.region
 
     // Check if username exists in the response
     if (!username) {
@@ -42,9 +41,7 @@ export default async function ml(id: number, zone: number): Promise<Result> {
       id,
       server: zone,
       name: username,
-      accountAge: `${accountAge.years} years, ${accountAge.months} months, ${accountAge.days} days`,
-      createRoleCountry,
-      thisLoginCountry
+      region,
     }
   } catch (error) {
     console.error('Error in ml function:', error)
