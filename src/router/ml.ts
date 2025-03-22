@@ -28,7 +28,6 @@ export default async function ml(id: number, zone: number): Promise<Result> {
 
     // Extract relevant data from the response
     const nickname = data.data.nickname
-    const country = data.data.country
 
     // Check if nickname exists in the response
     if (!nickname) {
@@ -41,7 +40,6 @@ export default async function ml(id: number, zone: number): Promise<Result> {
       id,
       server: zone,
       name: nickname,
-      country,
     }
   } catch (error) {
     console.error('Error in ml function:', error)
