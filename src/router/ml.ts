@@ -9,7 +9,7 @@ export default async function ml(game: string, userId: number, server?: number):
     // Make the GET request using fetch
     const response = await fetch(url, {
       method: 'GET',
-      headers: { "Content-Type": "application/json; charset=utf-8" }, // Set Content-Type header
+      headers: { "Content-Type": "application/json" }, // Set Content-Type header
     });
 
     // Check if the response is successful
