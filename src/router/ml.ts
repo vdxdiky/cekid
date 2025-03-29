@@ -4,11 +4,10 @@ export default async function ml(id: number, zone: number): Promise<Result> {
   try {
     const url = `https://cekid.sarjanatopup.com/mlud.php?id=${id}&zone=${zone}`
     const headers = {
-      'accept': 'application/json',
-      'User -Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36', // Corrected User-Agent header
+      "Content-Type": "application/json; charset=utf-8", // Set Content-Type header
     }
 
-    // Fetch data using GET request
+    // Fetch data using GET request with the Content-Type header
     const response = await fetch(url, { method: 'GET', headers })
 
     // Check if the response is successful
