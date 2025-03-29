@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { hitCoda, Result } from '../utils';
 
 export default async function ml(game: string, userId: number, server?: number): Promise<Result> {
@@ -7,12 +6,18 @@ export default async function ml(game: string, userId: number, server?: number):
   if (server) url += `&zone=${server}`;
 
   try {
-    // Make the GET request using axios
-    const response = await axios.get(url, {
-      headers: { "Content-Type": "application/json; charset=utf-8" },
+    // Make the GET request using fetch
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: { "Content-Type": "application/json; charset=utf-8" }, // Set Content-Type header
     });
 
-    const data = response.data;
+    // Check if the response is successful
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data. Status: ${response.status}`);
+    }
+
+    const data = await response.json();
 
     // Log the raw data to inspect it
     console.log('API response:', data);
